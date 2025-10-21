@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PitStop Gear | F1 Merchandise Store</title>
+  <style>
+    /* ---------- BASIC RESET ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #222;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      background-color: #000;
+      color: #fff;
+      padding: 15px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #ff0000;
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff0000;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1625905928324-577cf7f94ac4?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1332') 
+                  center/cover no-repeat;
+      height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #fff;
+      position: relative;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .hero button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero button:hover {
+      background-color: #cc0000;
+    }
+
+    /* ---------- PRODUCTS SECTION ---------- */
+    .products {
+      padding: 50px;
+      text-align: center;
+      background-color: #fff;
+    }
+
+    .products h2 {
+      font-size: 2rem;
+      color: #000;
+      margin-bottom: 30px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+    }
+
+    .product {
+      background-color: #f8f8f8;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      transition: transform 0.3s;
+    }
+
+    .product:hover {
+      transform: translateY(-5px);
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product h3 {
+      margin: 10px 0 5px;
+      color: #000;
+    }
+
+    .product p {
+      font-size: 0.95rem;
+      color: #666;
+    }
+
+    .product .price {
+      color: #ff0000;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+      }
+      nav {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ---------- HEADER ---------- -->
+  <header>
+    <h1>PitStop Gear</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Reviews</a>
+      <a href="#">Login</a>
+    </nav>
+  </header>
+
+  <!-- ---------- HERO SECTION ---------- -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Race-Ready F1 Merchandise</h2>
+      <p>Official fan gear inspired by Formula 1 speed and style.</p>
+      <button>Shop Now</button>
+    </div>
+  </section>
+
+  <!-- ---------- PRODUCTS SECTION ---------- -->
+  <section class="products">
+    <h2>Featured Products</h2>
+    <div class="product-grid">
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1665499183565-03be8227a7fd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGZvcm11bGExJTIwY2FwfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600" alt="F1 Cap" />
+        <h3>Team Cap</h3>
+        <p>Lightweight, breathable, and race-ready.</p>
+        <div class="price">$29.99</div>
+      </div>
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1758499535896-7be3b226d854?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687" alt="T-Shirt" />
+        <h3>F1 Team T-Shirt</h3>
+        <p>Show your loyalty with official team apparel.</p>
+        <div class="price">$39.99</div>
+      </div>
+
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1605868752262-58f35d6ef92b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Zm9ybXVsYSUyMDElMjBqYWNrZXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="Jacket" />
+        <h3>Racing Jacket</h3>
+        <p>Comfortable and stylish jacket for any fan.</p>
+        <div class="price">$89.99</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FOOTER ---------- -->
+  <footer>
+    <p>© 2025 PitStop Gear | Designed by Alexandru Popa</p>
+  </footer>
+</body>
+</html>
