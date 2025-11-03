@@ -7,20 +7,21 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- ---------- HEADER ---------- -->
   <header>
-    <nav class="navbar">
-      <div class="logo">F1 Merch Hub</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="shop.html" class="active">Shop</a></li>
-      </ul>
+    <h1>F1 Merch Hub</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="#">Reviews</a>
+      <a href="login.html">Login</a>
     </nav>
   </header>
 
-  <section class="shop-container">
+  <section class="products"> <!-- Changed class to 'products' to match index.html styling -->
     <h1>Official Formula 1 Merchandise</h1>
     <div class="product-grid">
-      <div class="product-card">
+      <div class="product-card"> <!-- Kept product-card for specific product listing, but it will use '.product' styles from CSS -->
         <img src="https://images.unsplash.com/photo-1607860108855-0282cb5501e5?auto=format&fit=crop&q=80&w=500" alt="F1 Cap">
         <h3>Red Bull Racing Cap</h3>
         <p>$29.99</p>
@@ -40,12 +41,24 @@
         <h3>F1 Logo Mug</h3>
         <p>$14.99</p>
       </div>
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1605868752262-58f35d6ef92b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8Zm9ybXVsYSUyMDElMjBqYWNrZXR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="Racing Jacket">
+        <h3>Racing Jacket</h3>
+        <p>Comfortable and stylish jacket for any fan.</p>
+        <div class="price">$89.99</div>
+      </div>
+      <div class="product-card">
+        <img src="https://images.unsplash.com/photo-1583267746466-53f72b5d4a19?auto=format&fit=crop&q=80&w=500" alt="Team Polo Shirt">
+        <h3>Team Polo Shirt</h3>
+        <p>Classic polo with team emblem.</p>
+        <div class="price">$44.99</div>
+      </div>
     </div>
   </section>
 
+  <!-- ---------- FOOTER ---------- -->
   <footer>
     <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
   </footer>
 </body>
 </html>
-
