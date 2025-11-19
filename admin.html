@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | F1 Merch Hub</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>F1 Merch Hub</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="admin.html" class="active">Admin</a> 
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <section class="admin-container">
+    <div class="admin-box">
+      <h2>Admin Dashboard</h2>
+      <p class="admin-subtitle">Add a new product to the store catalog.</p>
+      
+      <form id="add-product-form">
+        <div class="form-group">
+          <label for="product-title">Product Title:</label>
+          <input type="text" id="product-title" placeholder="e.g. Red Bull Racing Cap" required>
+        </div>
+
+        <div class="form-group">
+          <label for="product-price">Price ($):</label>
+          <input type="number" id="product-price" step="0.01" placeholder="e.g. 29.99" required>
+        </div>
+
+        <div class="form-group">
+          <label for="product-image">Image URL:</label>
+          <input type="url" id="product-image" placeholder="https://..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="product-desc">Description:</label>
+          <textarea id="product-desc" rows="4" placeholder="Enter product details..." required></textarea>
+        </div>
+
+        <button type="submit" class="admin-btn">Add Product</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
+  </footer>
+</body>
+</html>

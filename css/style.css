@@ -307,3 +307,422 @@ footer p {
     width: 100%; /* Full width for single column products */
   }
 }
+
+/* ---------- PRODUCT DETAILS PAGE ---------- */
+.product-details-container {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 10px;
+}
+
+.product-main {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 50px;
+  flex-wrap: wrap; /* Responsive wrapping */
+}
+
+.product-image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.product-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-info h2 {
+  font-size: 2.5rem;
+  color: #e10600;
+  margin-bottom: 10px;
+}
+
+.product-info .price {
+  font-size: 1.5rem;
+  color: #eee;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.product-info .description {
+  color: #ccc;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.add-cart-btn {
+  background-color: #e10600;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: start;
+}
+
+.add-cart-btn:hover {
+  background-color: #ff1e1e;
+}
+
+/* ---------- REVIEWS SECTION ---------- */
+.reviews-section {
+  border-top: 1px solid #333;
+  padding-top: 40px;
+}
+
+.reviews-section h3 {
+  color: #e10600;
+  margin-bottom: 20px;
+}
+
+/* Review Form */
+.add-review {
+  background-color: #222;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.add-review h4 {
+  margin-bottom: 15px;
+  color: #eee;
+}
+
+.add-review form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-review input, 
+.add-review select, 
+.add-review textarea {
+  padding: 10px;
+  background-color: #111;
+  border: 1px solid #444;
+  color: #eee;
+  border-radius: 5px;
+  font-family: inherit;
+}
+
+.add-review button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #e10600;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-review button:hover {
+  background-color: #e10600;
+}
+
+/* Reviews List */
+.review-card {
+  background-color: #222;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #e10600; /* Accent border */
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.reviewer-name {
+  font-weight: bold;
+  color: #fff;
+}
+
+.review-stars {
+  color: #e10600; /* Red stars */
+}
+
+.review-body {
+  color: #ccc;
+  font-size: 0.95rem;
+}
+
+/* Mobile adjustment for product details */
+@media (max-width: 768px) {
+  .product-main {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .add-cart-btn {
+    align-self: center;
+  }
+}
+
+/* ---------- ADMIN DASHBOARD ---------- */
+.admin-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+  min-height: 70vh;
+}
+
+.admin-box {
+  background-color: #1a1a1a;
+  padding: 40px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 0 20px rgba(225, 6, 0, 0.2); /* Subtle red glow */
+  border-top: 3px solid #e10600;
+}
+
+.admin-box h2 {
+  color: #e10600;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.admin-subtitle {
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 30px;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  color: #eee;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #111;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #e10600;
+}
+
+.admin-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #e10600;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 10px;
+}
+
+.admin-btn:hover {
+  background-color: #cc0000;
+}
+
+/* ---------- PROFILE PAGE ---------- */
+.profile-container {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Sidebar is 300px, content takes rest */
+  gap: 30px;
+  min-height: 60vh;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  background-color: #1a1a1a;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  height: fit-content;
+  border-top: 3px solid #e10600;
+}
+
+.user-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 2px solid #333;
+}
+
+.profile-sidebar h2 {
+  color: #e10600;
+  margin-bottom: 5px;
+}
+
+.profile-sidebar p {
+  color: #ccc;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.edit-profile-btn {
+  margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-profile-btn:hover {
+  background-color: #e10600;
+  border-color: #e10600;
+}
+
+/* Content Area */
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.profile-section {
+  background-color: #1a1a1a;
+  padding: 25px;
+  border-radius: 10px;
+}
+
+.profile-section h3 {
+  color: #eee;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Orders */
+.order-card {
+  background-color: #222;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border-left: 4px solid #444;
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.order-status {
+  font-size: 0.85rem;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.order-status.delivered {
+  background-color: #1b5e20; /* Green */
+  color: #e8f5e9;
+}
+
+.order-status.shipped {
+  background-color: #0d47a1; /* Blue */
+  color: #e3f2fd;
+}
+
+.order-items p {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+  color: #eee;
+}
+
+.view-order-btn {
+  background: none;
+  border: none;
+  color: #e10600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Reviews in Profile */
+.profile-review-card {
+  background-color: #222;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.profile-review-card h4 {
+  color: #fff;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.profile-review-card .stars {
+  color: #e10600;
+}
+
+.delete-review-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: transparent;
+  color: #777;
+  border: 1px solid #333;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-review-btn:hover {
+  color: #e10600;
+  border-color: #e10600;
+}
+
+/* Mobile Profile */
+@media (max-width: 768px) {
+  .profile-container {
+    grid-template-columns: 1fr; /* Stack columns */
+  }
+  .profile-sidebar {
+    margin-bottom: 20px;
+  }
+}
