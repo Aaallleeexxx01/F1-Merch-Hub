@@ -726,3 +726,7 @@ footer p {
     margin-bottom: 20px;
   }
 }
+
+#nav-login {
+  display: none; /* Hide it by default, just like the profile button */
+} 

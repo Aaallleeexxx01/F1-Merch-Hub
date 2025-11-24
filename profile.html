@@ -12,9 +12,37 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
-      <a href="profile.html" class="active">Profile</a>
+      <a href="admin.html" id="nav-admin" style="display: none;">Admin</a>
+      <a href="profile.html" class="active" id="nav-profile">Profile</a>
       <a href="#" id="logout-btn">Logout</a>
     </nav>
+
+    <script>
+      // 1. Handle Admin Button Instantly (PRIORITY)
+      const isAdmin = localStorage.getItem('isAdmin'); 
+      const navAdmin = document.getElementById('nav-admin');
+      
+      if (navAdmin) {
+        if (isAdmin === 'true') {
+          navAdmin.style.display = 'inline-block';
+        } else {
+          navAdmin.style.display = 'none';
+        }
+      }
+
+      // 2. Handle Profile/Login Visibility (Safety Checks Added)
+      const isLogged = localStorage.getItem('isLoggedIn');
+      const navProfile = document.getElementById('nav-profile');
+      const navLogin = document.getElementById('nav-login'); // Might be missing on profile page
+
+      if (isLogged === 'true') {
+        if (navProfile) navProfile.style.display = 'inline-block';
+        if (navLogin) navLogin.style.display = 'none';
+      } else {
+        if (navProfile) navProfile.style.display = 'none';
+        if (navLogin) navLogin.style.display = 'inline-block';
+      }
+    </script>
   </header>
 
   <section class="profile-container">
@@ -87,5 +115,6 @@
   <footer>
     <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
   </footer>
+  <script type="module" src="js/auth.js"></script>
 </body>
 </html>

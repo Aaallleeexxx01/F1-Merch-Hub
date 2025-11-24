@@ -15,6 +15,18 @@
       <a href="profile.html" id="nav-profile" style="display: none;">Profile</a>
       <a href="login.html" id="nav-login">Login</a>
     </nav>
+
+    <script>
+      // Check memory instantly to prevent flickering
+      const isLogged = localStorage.getItem('isLoggedIn');
+      if (isLogged === 'true') {
+        document.getElementById('nav-profile').style.display = 'inline-block';
+        document.getElementById('nav-login').style.display = 'none';
+      } else {
+        document.getElementById('nav-profile').style.display = 'none';
+        document.getElementById('nav-login').style.display = 'inline-block';
+      }
+    </script>
   </header>
 
   <section class="login-container">
@@ -39,5 +51,6 @@
   <footer>
     <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
   </footer>
+  <script type="module" src="js/auth.js"></script>
 </body>
 </html>
