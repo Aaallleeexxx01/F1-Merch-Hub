@@ -1,11 +1,31 @@
 import { db, collection, addDoc, auth, onAuthStateChanged, doc, getDoc } from "./firebase-config.js";
+
 const productForm = document.getElementById('add-product-form');
 
-// 1. Check if user is logged in. If not, kick them out.
-onAuthStateChanged(auth, (user) => {
+// 1. STRICT SECURITY CHECK: User must be logged in AND be an admin
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
+    // Case 1: Not logged in at all
     alert("You must be logged in to access the admin panel.");
     window.location.href = "login.html";
+  } else {
+    // Case 2: Logged in, but are they an admin?
+    try {
+      const userDocRef = doc(db, "users", user.uid);
+      const userSnapshot = await getDoc(userDocRef);
+
+      // Check if document exists AND the role is exactly 'admin'
+      if (!userSnapshot.exists() || userSnapshot.data().role !== 'admin') {
+        alert("ACCESS DENIED: You do not have permission to view this page.");
+        window.location.href = "index.html"; // Kick them back to home
+      } 
+      // If they ARE admin, do nothing (let them stay on the page)
+      
+    } catch (error) {
+      console.error("Security check failed:", error);
+      alert("Error verifying permissions.");
+      window.location.href = "index.html";
+    }
   }
 });
 
