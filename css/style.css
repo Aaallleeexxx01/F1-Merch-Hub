@@ -730,3 +730,19 @@ footer p {
 #nav-login {
   display: none; /* Hide it by default, just like the profile button */
 } 
+
+/* Styling for the dynamic Admin buttons */
+#edit-btn, #delete-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  font-family: "Poppins", sans-serif;
+}
+
+#edit-btn:hover, #delete-btn:hover {
+  transform: translateY(-2px); /* Slight lift effect */
+  opacity: 0.9;
+}

@@ -31,62 +31,31 @@
     </script>
   </header>
 
-  <div class="product-details-container">
-    <div class="product-main">
+<div class="product-main">
       <div class="product-image">
-        <img id="detail-img" src="https://images.unsplash.com/photo-1583267746466-53f72b5d4a19?auto=format&fit=crop&q=80&w=500" alt="Product Image">
+        <img id="detail-img" src="" alt="Product Image"> 
       </div>
       <div class="product-info">
-        <h2 id="detail-title">Ferrari Team Shirt</h2>
-        <p class="price" id="detail-price">$49.99</p>
-        <p class="description">
-          Official Scuderia Ferrari team shirt. Made with breathable fabric, perfect for race day or casual wear. Show your support for the Prancing Horse!
-        </p>
+        <h2 id="detail-title">Loading...</h2>
+        <p class="price" id="detail-price"></p>
+        
+        <p class="description" id="detail-desc"></p>
+        
+        <div id="admin-controls" style="margin-bottom: 20px;"></div>
+
         <button class="add-cart-btn">Add to Cart</button>
       </div>
     </div>
 
     <section class="reviews-section">
-      <h3>Customer Reviews</h3>
-      
-      <div class="add-review">
-        <h4>Write a Review</h4>
-        <form id="review-form">
-          <input type="text" id="review-name" placeholder="Your Name" required>
-          <select id="review-rating">
-            <option value="5">★★★★★ (5 Stars)</option>
-            <option value="4">★★★★☆ (4 Stars)</option>
-            <option value="3">★★★☆☆ (3 Stars)</option>
-            <option value="2">★★☆☆☆ (2 Stars)</option>
-            <option value="1">★☆☆☆☆ (1 Star)</option>
-          </select>
-          <textarea id="review-text" placeholder="Share your thoughts on this product..." rows="4" required></textarea>
-          <button type="submit">Submit Review</button>
-        </form>
-      </div>
-
-      <div class="reviews-list" id="reviews-list">
-        <div class="review-card">
-          <div class="review-header">
-            <span class="reviewer-name">Carlos S.</span>
-            <span class="review-stars">★★★★★</span>
-          </div>
-          <p class="review-body">Great quality shirt! Fits perfectly.</p>
-        </div>
-        
-        <div class="review-card">
-          <div class="review-header">
-            <span class="reviewer-name">Lando N.</span>
-            <span class="review-stars">★★★★☆</span>
-          </div>
-          <p class="review-body">Love the color, but shipping took a while.</p>
-        </div>
-      </div>
-    </section>
+      </section>
   </div>
 
   <footer>
     <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
   </footer>
+
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/details.js"></script> </body>
 </body>
 </html>

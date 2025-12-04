@@ -1,6 +1,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";const firebaseConfig = {
+// ADDED: deleteDoc, updateDoc
+import { getFirestore, collection, addDoc, doc, getDoc, getDocs, query, orderBy, limit, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"; 
+
+const firebaseConfig = {
   apiKey: "AIzaSyCQx98zmqLpkr20GQjhXeUhJVC6UDKygNA",
   authDomain: "f1-merch-hub.firebaseapp.com",
   projectId: "f1-merch-hub",
@@ -10,9 +13,9 @@ import { getFirestore, collection, addDoc, doc, getDoc } from "https://www.gstat
   measurementId: "G-TR46LDQ8T2"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, collection, addDoc, doc, getDoc };
+// Update Exports
+export { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, collection, addDoc, doc, getDoc, getDocs, query, orderBy, limit, deleteDoc, updateDoc };
