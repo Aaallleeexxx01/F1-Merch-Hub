@@ -1,89 +1,171 @@
-import { db, doc, getDoc, deleteDoc, updateDoc } from "./firebase-config.js";
+import { db, doc, getDoc, deleteDoc, updateDoc, setDoc, collection, query, where, getDocs, auth, onAuthStateChanged } from "./firebase-config.js";
+import { addToCart } from "./cart.js";
 
-// 1. Get the Product ID from the URL (e.g., product-details.html?id=12345)
 const params = new URLSearchParams(window.location.search);
 const productId = params.get('id');
 
+// UI Elements
 const imgEl = document.getElementById('detail-img');
 const titleEl = document.getElementById('detail-title');
 const priceEl = document.getElementById('detail-price');
 const descEl = document.getElementById('detail-desc');
-const adminControls = document.getElementById('admin-controls'); // We will add this container in HTML
+const adminControls = document.getElementById('admin-controls');
+const starBox = document.getElementById('star-box');
+const avgDisplay = document.querySelector('#avg-display span');
+const rateMsg = document.getElementById('rate-msg');
 
+let currentProduct = {}; // Store product data for the review
+
+// 1. LOAD PRODUCT DATA
 async function loadProductDetails() {
-  if (!productId) {
-    window.location.href = "shop.html"; // No ID? Go back to shop
-    return;
-  }
+  if (!productId) return window.location.href = "shop.html";
 
   try {
-    const docRef = doc(db, "products", productId);
-    const docSnap = await getDoc(docRef);
+    const docSnap = await getDoc(doc(db, "products", productId));
 
     if (docSnap.exists()) {
-      const product = docSnap.data();
+      currentProduct = docSnap.data();
+      currentProduct.id = docSnap.id;
 
-      // Display Data
-      imgEl.src = product.image;
-      titleEl.textContent = product.title;
-      priceEl.textContent = `$${product.price}`;
-      descEl.textContent = product.description;
+      imgEl.src = currentProduct.image;
+      titleEl.textContent = currentProduct.title;
+      priceEl.textContent = `$${currentProduct.price}`;
+      descEl.textContent = currentProduct.description;
 
-      // === CHECK IF ADMIN ===
-      const isAdmin = localStorage.getItem('isAdmin');
-      if (isAdmin === 'true') {
-        // Show Admin Buttons
-        adminControls.innerHTML = `
-          <button id="edit-btn" style="background-color: #333; color: #fff; margin-right: 10px;">Edit Product</button>
-          <button id="delete-btn" style="background-color: #e10600; color: #fff;">Delete Product</button>
-        `;
-        
-        // Attach Listeners
-        document.getElementById('delete-btn').addEventListener('click', deleteProduct);
-        document.getElementById('edit-btn').addEventListener('click', () => editProduct(product));
-      }
+      setupAddToCart(currentProduct);
+      setupAdminControls();
+      
+      // Load Ratings Logic
+      loadRatings(); 
+      checkUserRating();
 
     } else {
       titleEl.textContent = "Product not found";
     }
   } catch (error) {
-    console.error("Error loading details:", error);
+    console.error("Error:", error);
   }
 }
 
-// --- DELETE FUNCTION ---
-async function deleteProduct() {
-  if (confirm("Are you sure you want to delete this product? This cannot be undone.")) {
-    try {
-      await deleteDoc(doc(db, "products", productId));
-      alert("Product deleted!");
-      window.location.href = "shop.html";
-    } catch (error) {
-      alert("Error deleting: " + error.message);
+// 2. SETUP STAR LISTENERS
+function setupStarListeners() {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('click', async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("Please login to rate products.");
+        window.location.href = "login.html";
+        return;
+      }
+
+      const rating = parseInt(star.dataset.value);
+      await submitRating(user, rating);
+    });
+  });
+}
+
+// 3. SUBMIT RATING (One per user logic)
+async function submitRating(user, rating) {
+  try {
+    // Composite ID: userId_productId ensures uniqueness
+    const reviewId = `${user.uid}_${productId}`;
+    
+    await setDoc(doc(db, "reviews", reviewId), {
+      userId: user.uid,
+      productId: productId,
+      rating: rating,
+      // Save snapshot of product info for the Profile page
+      productTitle: currentProduct.title,
+      productImage: currentProduct.image,
+      createdAt: new Date()
+    });
+
+    alert(`You rated this ${rating} stars!`);
+    highlightStars(rating); // Update UI visually
+    loadRatings(); // Recalculate average immediately
+  } catch (error) {
+    console.error("Rating error:", error);
+    alert("Error saving rating.");
+  }
+}
+
+// 4. CHECK IF USER ALREADY RATED
+function checkUserRating() {
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const reviewId = `${user.uid}_${productId}`;
+      const docSnap = await getDoc(doc(db, "reviews", reviewId));
+      if (docSnap.exists()) {
+        const myRating = docSnap.data().rating;
+        highlightStars(myRating);
+        rateMsg.textContent = `You rated this ${myRating} stars`;
+      }
     }
-  }
+  });
 }
 
-// --- EDIT FUNCTION (Simple Prompt Version) ---
-async function editProduct(currentProduct) {
-  // Simple prompts for quick editing. For a pro version, we'd use a modal form.
-  const newTitle = prompt("Edit Title:", currentProduct.title);
-  const newPrice = prompt("Edit Price:", currentProduct.price);
-  const newDesc = prompt("Edit Description:", currentProduct.description);
+// 5. CALCULATE AVERAGE
+async function loadRatings() {
+  const q = query(collection(db, "reviews"), where("productId", "==", productId));
+  const snapshot = await getDocs(q);
+  
+  if (snapshot.empty) {
+    avgDisplay.textContent = "--";
+    return;
+  }
 
-  if (newTitle && newPrice && newDesc) {
-    try {
-      await updateDoc(doc(db, "products", productId), {
-        title: newTitle,
-        price: parseFloat(newPrice),
-        description: newDesc
-      });
-      alert("Product updated!");
-      location.reload(); // Refresh to see changes
-    } catch (error) {
-      alert("Error updating: " + error.message);
+  let total = 0;
+  snapshot.forEach(doc => total += doc.data().rating);
+  const avg = (total / snapshot.size).toFixed(1);
+  
+  avgDisplay.textContent = avg;
+}
+
+// Helper: Visually select stars
+function highlightStars(rating) {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach(s => {
+    // row-reverse logic: Highlight stars with value <= rating
+    if (parseInt(s.dataset.value) <= rating) {
+      s.style.color = "#ffd700";
+    } else {
+      s.style.color = "#555";
     }
+  });
+}
+
+// --- STANDARD HELPERS ---
+function setupAddToCart(product) {
+  const btn = document.querySelector('.add-cart-btn');
+  const newBtn = btn.cloneNode(true);
+  btn.parentNode.replaceChild(newBtn, btn);
+  newBtn.addEventListener('click', () => addToCart(product));
+}
+
+function setupAdminControls() {
+  if (localStorage.getItem('isAdmin') === 'true') {
+    adminControls.innerHTML = `
+      <button id="edit-btn" style="background:#333; color:#fff; padding:10px; margin-right:10px;">Edit</button>
+      <button id="delete-btn" style="background:#e10600; color:#fff; padding:10px;">Delete</button>
+    `;
+    document.getElementById('delete-btn').addEventListener('click', async () => {
+      if(confirm("Delete?")) {
+        await deleteDoc(doc(db, "products", productId));
+        window.location.href = "shop.html";
+      }
+    });
+    // Edit logic (simplified)
+    document.getElementById('edit-btn').addEventListener('click', async () => {
+       const newPrice = prompt("New Price:", currentProduct.price);
+       if(newPrice) {
+         await updateDoc(doc(db, "products", productId), { price: parseFloat(newPrice) });
+         location.reload();
+       }
+    });
   }
 }
 
+// Init
+setupStarListeners();
 loadProductDetails();

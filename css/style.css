@@ -550,31 +550,11 @@ footer p {
 
 /* ---------- PROFILE PAGE ---------- */
 .profile-container {
-  max-width: 1100px;
-  margin: 50px auto;
+  max-width: 800px;       /* Limit width so it looks nice and centered */
+  margin: 50px auto;      /* Center the container on the page */
   padding: 20px;
-  display: grid;
-  grid-template-columns: 300px 1fr; /* Sidebar is 300px, content takes rest */
-  gap: 30px;
+  display: block;         /* Remove 'grid' */
   min-height: 60vh;
-}
-
-/* Sidebar */
-.profile-sidebar {
-  background-color: #1a1a1a;
-  padding: 30px;
-  border-radius: 10px;
-  text-align: center;
-  height: fit-content;
-  border-top: 3px solid #e10600;
-}
-
-.user-avatar img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-  border: 2px solid #333;
 }
 
 .profile-sidebar h2 {
@@ -588,17 +568,6 @@ footer p {
   margin-bottom: 5px;
 }
 
-.edit-profile-btn {
-  margin-top: 20px;
-  background-color: #333;
-  color: #fff;
-  border: 1px solid #555;
-  padding: 8px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
 .edit-profile-btn:hover {
   background-color: #e10600;
   border-color: #e10600;
@@ -606,6 +575,7 @@ footer p {
 
 /* Content Area */
 .profile-content {
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -745,4 +715,73 @@ footer p {
 #edit-btn:hover, #delete-btn:hover {
   transform: translateY(-2px); /* Slight lift effect */
   opacity: 0.9;
+}
+
+/* ---------- STAR RATING SYSTEM ---------- */
+.rating-section {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #222;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.star-container {
+  display: inline-block;
+  font-size: 2rem;
+  color: #555; /* Gray (unselected) */
+  cursor: pointer;
+}
+
+/* Gold stars when active or hovered */
+.star-container .star.active,
+.star-container .star:hover,
+.star-container .star:hover ~ .star {
+  color: #ffd700; /* Gold */
+}
+
+/* Reverse hover effect logic for CSS selection */
+.star-container {
+  display: flex;
+  flex-direction: row-reverse; /* Important for CSS hover trick */
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Average Rating Display */
+.avg-rating {
+  font-size: 1.2rem;
+  color: #eee;
+  margin-bottom: 10px;
+}
+.avg-rating span {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Profile Review Card Style */
+.review-item {
+  display: flex;
+  align-items: center;
+  background: #222;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer; /* Indicates it's clickable */
+  border-left: 4px solid #ffd700;
+}
+
+.review-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.review-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 20px;
 }

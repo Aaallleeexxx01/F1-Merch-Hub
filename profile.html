@@ -9,103 +9,24 @@
 <body>
   <header>
     <h1>F1 Merch Hub</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="admin.html" id="nav-admin" style="display: none;">Admin</a>
-      <a href="profile.html" class="active" id="nav-profile">Profile</a>
-      <a href="#" id="logout-btn">Logout</a>
-    </nav>
-
-    <script>
-      // 1. Handle Admin Button Instantly (PRIORITY)
-      const isAdmin = localStorage.getItem('isAdmin'); 
-      const navAdmin = document.getElementById('nav-admin');
-      
-      if (navAdmin) {
-        if (isAdmin === 'true') {
-          navAdmin.style.display = 'inline-block';
-        } else {
-          navAdmin.style.display = 'none';
-        }
-      }
-
-      // 2. Handle Profile/Login Visibility (Safety Checks Added)
-      const isLogged = localStorage.getItem('isLoggedIn');
-      const navProfile = document.getElementById('nav-profile');
-      const navLogin = document.getElementById('nav-login'); // Might be missing on profile page
-
-      if (isLogged === 'true') {
-        if (navProfile) navProfile.style.display = 'inline-block';
-        if (navLogin) navLogin.style.display = 'none';
-      } else {
-        if (navProfile) navProfile.style.display = 'none';
-        if (navLogin) navLogin.style.display = 'inline-block';
-      }
-    </script>
   </header>
 
   <section class="profile-container">
-    <div class="profile-sidebar">
-      <div class="user-avatar">
-        <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="User Avatar">
-      </div>
-      <h2 id="profile-name">Max V.</h2>
-      <p id="profile-email">max@redbull.com</p>
-      <p class="join-date">Member since: Jan 2025</p>
-      <button class="edit-profile-btn">Edit Profile</button>
-    </div>
-
     <div class="profile-content">
       
+      <h2 style="text-align: center; color: #e10600; margin-bottom: 30px;">My Account</h2>
+
       <div class="profile-section">
         <h3>My Orders</h3>
-        
-        <div class="order-card">
-          <div class="order-header">
-            <span class="order-id">Order #10234</span>
-            <span class="order-status delivered">Delivered</span>
-          </div>
-          <div class="order-items">
-            <p>1x Red Bull Racing Cap</p>
-            <p>1x F1 Logo Mug</p>
-          </div>
-          <div class="order-total">
-            <span>Total: $44.98</span>
-            <button class="view-order-btn">View Details</button>
-          </div>
-        </div>
-
-        <div class="order-card">
-          <div class="order-header">
-            <span class="order-id">Order #10235</span>
-            <span class="order-status shipped">Shipped</span>
-          </div>
-          <div class="order-items">
-            <p>1x Ferrari Team Shirt</p>
-          </div>
-          <div class="order-total">
-            <span>Total: $49.99</span>
-            <button class="view-order-btn">View Details</button>
-          </div>
+        <div id="orders-container">
+          <p style="color: #aaa;">Loading your order history...</p>
         </div>
       </div>
 
       <div class="profile-section">
         <h3>My Reviews</h3>
-        
-        <div class="profile-review-card">
-          <h4>Red Bull Racing Cap</h4>
-          <span class="stars">★★★★★</span>
-          <p>Fits great and looks amazing at the track!</p>
-          <button class="delete-review-btn">Delete</button>
-        </div>
-
-        <div class="profile-review-card">
-          <h4>Ferrari Team Shirt</h4>
-          <span class="stars">★★★★☆</span>
-          <p>Great material, but runs a little small.</p>
-          <button class="delete-review-btn">Delete</button>
+        <div id="reviews-container">
+          <p style="color:#aaa;">Loading your reviews...</p>
         </div>
       </div>
 
@@ -115,6 +36,8 @@
   <footer>
     <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
   </footer>
+
   <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/profile.js"></script>
 </body>
 </html>

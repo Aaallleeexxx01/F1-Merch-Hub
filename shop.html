@@ -9,37 +9,6 @@
 <body>
   <header>
     <h1>F1 Merch Hub</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="admin.html" id="nav-admin" style="display: none;">Admin</a>
-      <a href="profile.html" id="nav-profile" style="display: none;">Profile</a>
-      <a href="login.html" id="nav-login">Login</a>
-    </nav>
-
-<script>
-  // Check memory instantly to prevent flickering
-  const isLogged = localStorage.getItem('isLoggedIn');
-  const isAdmin = localStorage.getItem('isAdmin'); 
-
-  if (isLogged === 'true') {
-    document.getElementById('nav-profile').style.display = 'inline-block';
-    document.getElementById('nav-login').style.display = 'none';
-  } else {
-    document.getElementById('nav-profile').style.display = 'none';
-    document.getElementById('nav-login').style.display = 'inline-block';
-  }
-
-  // Handle Admin Button Instantly
-  const navAdmin = document.getElementById('nav-admin');
-  if (navAdmin) {
-    if (isAdmin === 'true') {
-      navAdmin.style.display = 'inline-block';
-    } else {
-      navAdmin.style.display = 'none';
-    }
-  }
-</script>
   </header>
 
   <section class="products">

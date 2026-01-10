@@ -10,25 +10,6 @@
 <body>
   <header>
     <h1>F1 Merch Hub</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="admin.html" id="nav-admin" style="display: none;">Admin</a>
-      <a href="profile.html" id="nav-profile" style="display: none;">Profile</a>
-      <a href="login.html" id="nav-login">Login</a>
-    </nav>
-
-    <script>
-      // Check memory instantly to prevent flickering
-      const isLogged = localStorage.getItem('isLoggedIn');
-      if (isLogged === 'true') {
-        document.getElementById('nav-profile').style.display = 'inline-block';
-        document.getElementById('nav-login').style.display = 'none';
-      } else {
-        document.getElementById('nav-profile').style.display = 'none';
-        document.getElementById('nav-login').style.display = 'inline-block';
-      }
-    </script>
   </header>
 
 <div class="product-main">
@@ -48,6 +29,20 @@
     </div>
 
     <section class="reviews-section">
+      <h3>Rate this Product</h3>
+      <div class="avg-rating" id="avg-display">
+        Average: <span>--</span> / 5
+      </div>
+      
+      <div class="star-container" id="star-box">
+        <span class="star" data-value="5">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="1">★</span>
+      </div>
+      <p id="rate-msg" style="font-size:0.9rem; color:#aaa; margin-top:10px;">Tap a star to rate</p>
+    </div>
       </section>
   </div>
 
