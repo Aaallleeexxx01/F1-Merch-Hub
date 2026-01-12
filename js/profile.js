@@ -31,9 +31,6 @@ onAuthStateChanged(auth, async (user) => {
 
 // --- LOAD ORDERS (Kept from previous step) ---
 async function loadOrders(userId) {
-  // ... (Your existing loadOrders code here - no changes needed) ...
-  // If you need me to paste it again, let me know, otherwise keep the one from before!
-  // I'll assume you kept the previous working version of this function.
   try {
     const q = query(collection(db, "orders"), where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
@@ -50,12 +47,12 @@ async function loadOrders(userId) {
        const status = order.status || "Processing";
        // Simplified Order Card for brevity
        const html = `
-        <div class="order-card" style="background:#222; padding:15px; margin-bottom:10px; border-left:4px solid #e10600; border-radius:8px;">
-           <div style="display:flex; justify-content:space-between; color:#fff; font-weight:bold;">
+        <div class="order-card">
+           <div class="order-header">
              <span>Order #${doc.id.slice(0,6)}</span>
-             <span style="color:#e10600">${status}</span>
+             <span style="color:#e10600">${status}</span> 
            </div>
-           <p style="color:#aaa; font-size:0.9rem; margin-top:5px;">Total: $${total}</p>
+           <p class="order-total-text">Total: $${total}</p>
         </div>`;
        ordersContainer.innerHTML += html;
     });

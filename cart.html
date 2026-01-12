@@ -5,23 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Cart | F1 Merch Hub</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Specific styles for cart */
-    .cart-container { max-width: 900px; margin: 50px auto; padding: 20px; display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
-    .cart-items { background: #1a1a1a; padding: 20px; border-radius: 10px; }
-    .checkout-form { background: #222; padding: 20px; border-radius: 10px; height: fit-content; border-top: 3px solid #e10600; }
-    
-    .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding: 15px 0; }
-    .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 5px; margin-right: 15px; }
-    .item-info { flex-grow: 1; }
-    .item-controls button { background: #333; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 3px; }
-    .item-controls button:hover { background: #e10600; }
-    .remove-btn { color: #e10600; background: none !important; margin-left: 10px; text-decoration: underline; }
-    
-    .total-price { font-size: 1.5rem; color: #fff; text-align: right; margin-top: 20px; }
-    
-    @media (max-width: 768px) { .cart-container { grid-template-columns: 1fr; } }
-  </style>
 </head>
 <body>
   <header>
@@ -57,10 +40,6 @@
       </form>
     </div>
   </div>
-
-  <footer>
-    <p>&copy; 2025 F1 Merch Hub. All rights reserved.</p>
-  </footer>
 
   <script type="module" src="js/auth.js"></script>
   <script type="module" src="js/checkout.js"></script>

@@ -1,3 +1,4 @@
+import { createProductCard } from "./utils.js";
 import { db, collection, getDocs } from "./firebase-config.js";
 
 const productGrid = document.querySelector('.product-grid');
@@ -24,18 +25,7 @@ async function loadProducts() {
     querySnapshot.forEach((doc) => {
       const product = doc.data();
       const productId = doc.id; // We will need this next week for the details page
-
-      // Create the HTML string for one card
-      const productHTML = `
-        <div class="product-card" onclick="location.href='product-details.html?id=${productId}'" style="cursor: pointer;">
-          <img src="${product.image}" alt="${product.title}">
-          <h3>${product.title}</h3>
-          <p>${product.description.substring(0, 50)}...</p> <div class="price">$${product.price}</div>
-        </div>
-      `;
-
-      // Add it to the grid
-      productGrid.innerHTML += productHTML;
+      productGrid.innerHTML += createProductCard(product, productId);
     });
 
   } catch (error) {

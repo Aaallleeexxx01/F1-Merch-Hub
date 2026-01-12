@@ -1,17 +1,8 @@
-// js/checkout.js
+import { requireLogin } from "./auth.js"; 
 import { db, collection, addDoc, auth, onAuthStateChanged } from "./firebase-config.js";
 import { getCart, updateQuantity, removeFromCart, getCartTotal, clearCart } from "./cart.js";
   
-onAuthStateChanged(auth, (user) => {
-  if (!user) {
-    // Allow the logout process to finish if it's running
-    if (localStorage.getItem('isLoggingOut') === 'true') return;
-    
-    // Otherwise, redirect to login
-    alert("Please login to view your cart.");
-    window.location.href = "login.html";
-  }
-});
+requireLogin();
 
 const cartList = document.getElementById('cart-list');
 const finalTotalEl = document.getElementById('final-total');

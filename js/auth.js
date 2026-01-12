@@ -83,6 +83,22 @@ function renderNavbar() {
 // Call immediately to render nav as soon as this script loads
 renderNavbar();
 
+function renderFooter() {
+  // Check if a footer already exists to prevent duplicates
+  if (document.querySelector('footer')) return;
+
+  const footer = document.createElement('footer');
+  const year = new Date().getFullYear(); // Dynamic year
+  
+  footer.innerHTML = `
+    <p>&copy; ${year} F1 Merch Hub. All rights reserved.</p>
+  `;
+  
+  document.body.appendChild(footer);
+}
+
+// Call it immediately
+renderFooter();
 
 // --- 3. AUTH STATE OBSERVER (The Source of Truth) ---
 onAuthStateChanged(auth, async (user) => {
@@ -136,6 +152,16 @@ export async function requireAdmin() {
   if (localStorage.getItem('isAdmin') !== 'true') {
      alert("Access Denied: Admins only.");
      window.location.href = "index.html";
+     return false;
+  }
+  return true;
+}
+
+export function requireLogin() {
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+     // Optional: Alert the user
+     alert("Please login to access this page.");
+     window.location.href = "login.html";
      return false;
   }
   return true;
