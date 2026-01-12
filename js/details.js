@@ -140,7 +140,15 @@ function setupAddToCart(product) {
   const btn = document.querySelector('.add-cart-btn');
   const newBtn = btn.cloneNode(true);
   btn.parentNode.replaceChild(newBtn, btn);
-  newBtn.addEventListener('click', () => addToCart(product));
+  newBtn.addEventListener('click', () => {
+    if (!auth.currentUser) {
+      alert("Please login to add items to your cart.");
+      window.location.href = "login.html"; // Redirects them to login
+      return;
+    }
+
+    addToCart(product);
+  });
 }
 
 function setupAdminControls() {

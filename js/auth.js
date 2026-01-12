@@ -1,3 +1,4 @@
+import { loadUserCart } from "./cart.js";
 import { auth, db, doc, getDoc, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "./firebase-config.js";
 
 // --- 1. CONFIGURATION ---
@@ -12,6 +13,7 @@ const navLinks = [
 
 // --- 2. NAVBAR GENERATOR (Run immediately) ---
 function renderNavbar() {
+  localStorage.removeItem('isLoggingOut'); 
   const header = document.querySelector('header');
   if (!header) return;
 
@@ -53,10 +55,24 @@ function renderNavbar() {
   
   logoutBtn.addEventListener('click', async (e) => {
     e.preventDefault();
+    
+    // 1. Set the flag to prevent the race condition glitch
+    localStorage.setItem('isLoggingOut', 'true');
+
+    // 2. Clear the "Display Cart" from the browser
+    // (Your real cart is safe in the database now!)
+    localStorage.removeItem('f1-cart'); 
+
+    // 3. Sign out of Firebase
     await signOut(auth);
+    
+    // 4. Clear local session helpers
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('isAdmin');
-    alert("Logged out.");
+
+    alert("Logged out successfully.");
+
+    // 5. REDIRECT TO HOME
     window.location.href = "index.html";
   });
 
@@ -77,6 +93,7 @@ onAuthStateChanged(auth, async (user) => {
 
   if (user) {
     localStorage.setItem('isLoggedIn', 'true');
+    await loadUserCart(user.uid);
     
     // Check Admin Role
     let role = 'user';

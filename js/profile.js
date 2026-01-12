@@ -7,12 +7,24 @@ const profileEmail = document.getElementById('profile-email');
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
+    // User is logged in: Show their data
     if (profileEmail) profileEmail.textContent = user.email;
     if (profileName) profileName.textContent = user.displayName || "F1 Fan";
     
     await loadOrders(user.uid);
-    await loadMyReviews(user.uid); // Load Reviews
+    await loadMyReviews(user.uid); 
+
   } else {
+    // User is NOT logged in
+
+    // 1. Check if the "Logout" button was just pressed. 
+    // If yes, do nothing here (let auth.js handle the redirect to home)
+    if (localStorage.getItem('isLoggingOut') === 'true') {
+        return; 
+    }
+
+    // 2. If they are NOT logging out, they shouldn't be here. 
+    // Redirect them to login immediately.
     window.location.href = "login.html";
   }
 });
