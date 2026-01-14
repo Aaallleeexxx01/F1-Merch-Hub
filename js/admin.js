@@ -1,12 +1,10 @@
 import { db, collection, addDoc } from "./firebase-config.js";
-import { requireAdmin } from "./auth.js"; // Import the security check
+import { requireAdmin } from "./auth.js";
 
-// 1. Run Security Check
 requireAdmin(); 
 
 const productForm = document.getElementById('add-product-form');
 
-// 2. Handle Form
 if (productForm) {
   productForm.addEventListener('submit', async (e) => {
     e.preventDefault();

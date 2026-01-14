@@ -4,7 +4,6 @@ import { addToCart } from "./cart.js";
 const params = new URLSearchParams(window.location.search);
 const productId = params.get('id');
 
-// UI Elements
 const imgEl = document.getElementById('detail-img');
 const titleEl = document.getElementById('detail-title');
 const priceEl = document.getElementById('detail-price');
@@ -14,9 +13,8 @@ const starBox = document.getElementById('star-box');
 const avgDisplay = document.querySelector('#avg-display span');
 const rateMsg = document.getElementById('rate-msg');
 
-let currentProduct = {}; // Store product data for the review
+let currentProduct = {}; 
 
-// 1. LOAD PRODUCT DATA
 async function loadProductDetails() {
   if (!productId) return window.location.href = "shop.html";
 
@@ -35,7 +33,6 @@ async function loadProductDetails() {
       setupAddToCart(currentProduct);
       setupAdminControls();
       
-      // Load Ratings Logic
       loadRatings(); 
       checkUserRating();
 
@@ -47,7 +44,6 @@ async function loadProductDetails() {
   }
 }
 
-// 2. SETUP STAR LISTENERS
 function setupStarListeners() {
   const stars = document.querySelectorAll('.star');
   stars.forEach(star => {
@@ -65,32 +61,28 @@ function setupStarListeners() {
   });
 }
 
-// 3. SUBMIT RATING (One per user logic)
 async function submitRating(user, rating) {
   try {
-    // Composite ID: userId_productId ensures uniqueness
     const reviewId = `${user.uid}_${productId}`;
     
     await setDoc(doc(db, "reviews", reviewId), {
       userId: user.uid,
       productId: productId,
       rating: rating,
-      // Save snapshot of product info for the Profile page
       productTitle: currentProduct.title,
       productImage: currentProduct.image,
       createdAt: new Date()
     });
 
     alert(`You rated this ${rating} stars!`);
-    highlightStars(rating); // Update UI visually
-    loadRatings(); // Recalculate average immediately
+    highlightStars(rating); 
+    loadRatings(); 
   } catch (error) {
     console.error("Rating error:", error);
     alert("Error saving rating.");
   }
 }
 
-// 4. CHECK IF USER ALREADY RATED
 function checkUserRating() {
   onAuthStateChanged(auth, async (user) => {
     if (user) {
@@ -105,7 +97,6 @@ function checkUserRating() {
   });
 }
 
-// 5. CALCULATE AVERAGE
 async function loadRatings() {
   const q = query(collection(db, "reviews"), where("productId", "==", productId));
   const snapshot = await getDocs(q);
@@ -122,11 +113,9 @@ async function loadRatings() {
   avgDisplay.textContent = avg;
 }
 
-// Helper: Visually select stars
 function highlightStars(rating) {
   const stars = document.querySelectorAll('.star');
   stars.forEach(s => {
-    // row-reverse logic: Highlight stars with value <= rating
     if (parseInt(s.dataset.value) <= rating) {
       s.style.color = "#ffd700";
     } else {
@@ -135,7 +124,6 @@ function highlightStars(rating) {
   });
 }
 
-// --- STANDARD HELPERS ---
 function setupAddToCart(product) {
   const btn = document.querySelector('.add-cart-btn');
   const newBtn = btn.cloneNode(true);
@@ -143,7 +131,7 @@ function setupAddToCart(product) {
   newBtn.addEventListener('click', () => {
     if (!auth.currentUser) {
       alert("Please login to add items to your cart.");
-      window.location.href = "login.html"; // Redirects them to login
+      window.location.href = "login.html"; 
       return;
     }
 
@@ -163,7 +151,6 @@ function setupAdminControls() {
         window.location.href = "shop.html";
       }
     });
-    // Edit logic (simplified)
     document.getElementById('edit-btn').addEventListener('click', async () => {
        const newPrice = prompt("New Price:", currentProduct.price);
        if(newPrice) {
@@ -174,6 +161,5 @@ function setupAdminControls() {
   }
 }
 
-// Init
 setupStarListeners();
 loadProductDetails();

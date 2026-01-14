@@ -1,13 +1,12 @@
 import { auth, db, collection, query, where, getDocs, onAuthStateChanged } from "./firebase-config.js";
 
 const ordersContainer = document.getElementById('orders-container');
-const reviewsContainer = document.getElementById('reviews-container'); // NEW
+const reviewsContainer = document.getElementById('reviews-container'); 
 const profileName = document.getElementById('profile-name');
 const profileEmail = document.getElementById('profile-email');
 
 onAuthStateChanged(auth, async (user) => {
   if (user) {
-    // User is logged in: Show their data
     if (profileEmail) profileEmail.textContent = user.email;
     if (profileName) profileName.textContent = user.displayName || "F1 Fan";
     
@@ -15,21 +14,13 @@ onAuthStateChanged(auth, async (user) => {
     await loadMyReviews(user.uid); 
 
   } else {
-    // User is NOT logged in
-
-    // 1. Check if the "Logout" button was just pressed. 
-    // If yes, do nothing here (let auth.js handle the redirect to home)
     if (localStorage.getItem('isLoggingOut') === 'true') {
         return; 
     }
-
-    // 2. If they are NOT logging out, they shouldn't be here. 
-    // Redirect them to login immediately.
     window.location.href = "login.html";
   }
 });
 
-// --- LOAD ORDERS (Kept from previous step) ---
 async function loadOrders(userId) {
   try {
     const q = query(collection(db, "orders"), where("userId", "==", userId));
@@ -45,7 +36,6 @@ async function loadOrders(userId) {
        const order = doc.data();
        const total = order.totalAmount || "0.00";
        const status = order.status || "Processing";
-       // Simplified Order Card for brevity
        const html = `
         <div class="order-card">
            <div class="order-header">
@@ -59,7 +49,6 @@ async function loadOrders(userId) {
   } catch (e) { console.error(e); }
 }
 
-// --- NEW: LOAD REVIEWS ---
 async function loadMyReviews(userId) {
   try {
     const q = query(collection(db, "reviews"), where("userId", "==", userId));
@@ -74,7 +63,6 @@ async function loadMyReviews(userId) {
 
     snapshot.forEach(doc => {
       const review = doc.data();
-      // Generate Stars String (e.g., "★★★★☆")
       const stars = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
       
       const html = `

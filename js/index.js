@@ -7,7 +7,6 @@ async function loadFeaturedProducts() {
   featuredGrid.innerHTML = '<p style="color:#fff; text-align:center;">Loading latest gear...</p>';
 
   try {
-    // QUERY: Get products, Sort by 'createdAt' (newest first), Stop after 3
     const q = query(
       collection(db, "products"),
       orderBy("createdAt", "desc"), 
@@ -21,7 +20,7 @@ async function loadFeaturedProducts() {
       return;
     }
 
-    featuredGrid.innerHTML = ''; // Clear loading text
+    featuredGrid.innerHTML = ''; 
 
     querySnapshot.forEach((doc) => {
       const product = doc.data();
@@ -31,7 +30,6 @@ async function loadFeaturedProducts() {
 
   } catch (error) {
     console.error("Error loading featured items:", error);
-    // Fallback if index is missing or error occurs
     featuredGrid.innerHTML = '<p>Check out our full catalog in the Shop!</p>';
   }
 }

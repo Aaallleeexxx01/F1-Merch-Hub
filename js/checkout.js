@@ -8,7 +8,6 @@ const cartList = document.getElementById('cart-list');
 const finalTotalEl = document.getElementById('final-total');
 const checkoutForm = document.getElementById('checkout-form');
 
-// 1. Render Cart
 function renderCart() {
   const cart = getCart();
   
@@ -18,7 +17,7 @@ function renderCart() {
     return;
   }
 
-  cartList.innerHTML = ''; // Clear loading text
+  cartList.innerHTML = ''; 
   
   cart.forEach(item => {
     const div = document.createElement('div');
@@ -45,7 +44,6 @@ function renderCart() {
   attachListeners();
 }
 
-// 2. Event Listeners for +/- and Remove
 function attachListeners() {
   document.querySelectorAll('.qty-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -53,7 +51,7 @@ function attachListeners() {
       const action = e.target.dataset.action;
       const change = action === 'plus' ? 1 : -1;
       updateQuantity(id, change);
-      renderCart(); // Re-render to show new quantity/total
+      renderCart(); 
     });
   });
 
@@ -66,7 +64,6 @@ function attachListeners() {
   });
 }
 
-// 3. Handle Checkout Submission
 checkoutForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -85,7 +82,6 @@ checkoutForm.addEventListener('submit', async (e) => {
   const phone = document.getElementById('phone').value;
 
   try {
-    // Create Order Record
     const orderData = {
       userId: user.uid,
       userEmail: user.email,
@@ -100,12 +96,11 @@ checkoutForm.addEventListener('submit', async (e) => {
 
     alert("Order placed successfully!");
     clearCart();
-    window.location.href = "profile.html"; // Redirect to see orders
+    window.location.href = "profile.html"; 
   } catch (error) {
     console.error("Order error:", error);
     alert("Failed to place order: " + error.message);
   }
 });
 
-// Initial Load
 renderCart();
