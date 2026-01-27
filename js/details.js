@@ -145,17 +145,40 @@ function setupAdminControls() {
       <button id="edit-btn" style="background:#333; color:#fff; padding:10px; margin-right:10px;">Edit</button>
       <button id="delete-btn" style="background:#e10600; color:#fff; padding:10px;">Delete</button>
     `;
+
     document.getElementById('delete-btn').addEventListener('click', async () => {
       if(confirm("Delete?")) {
         await deleteDoc(doc(db, "products", productId));
         window.location.href = "shop.html";
       }
     });
+
     document.getElementById('edit-btn').addEventListener('click', async () => {
-       const newPrice = prompt("New Price:", currentProduct.price);
-       if(newPrice) {
-         await updateDoc(doc(db, "products", productId), { price: parseFloat(newPrice) });
+       const newTitle = prompt("Edit Title:", currentProduct.title);
+       if (newTitle === null) return; 
+
+       const newPrice = prompt("Edit Price:", currentProduct.price);
+       if (newPrice === null) return;
+
+       const newImage = prompt("Edit Image URL:", currentProduct.image);
+       if (newImage === null) return;
+
+       const newDesc = prompt("Edit Description:", currentProduct.description);
+       if (newDesc === null) return;
+
+       try {
+         await updateDoc(doc(db, "products", productId), { 
+             title: newTitle,
+             price: parseFloat(newPrice),
+             image: newImage,
+             description: newDesc
+         });
+         
+         alert("Product updated successfully!");
          location.reload();
+       } catch (error) {
+         console.error("Error updating product:", error);
+         alert("Failed to update product.");
        }
     });
   }
